@@ -4,6 +4,7 @@ import (
 	"github.com/esportsclub/entity-service-golang/handlers"
 	"github.com/esportsclub/entity-service-golang/services"
 	"github.com/gorilla/mux"
+	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
 	"os"
@@ -15,13 +16,13 @@ type App struct {
 	Handler *handlers.Handler
 }
 
-func NewApp() *App {
+func NewApp(db *mongo.Client) *App {
 	r := mux.NewRouter().
 		PathPrefix(os.Getenv("SERVICE_PREFIX")).
 		Subrouter().
 		StrictSlash(true)
 
-	service := services.Service{}
+	service := services.Service{DB: db}
 	handler := handlers.Handler{
 		Service: &service,
 	}

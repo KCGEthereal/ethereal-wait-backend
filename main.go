@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/esportsclub/entity-service-golang/database"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -15,7 +16,9 @@ func init() {
 }
 
 func main() {
-	err := NewApp().
+	mongo := database.NewMongo()
+
+	err := NewApp(mongo).
 		SetupRoutes().
 		Listen()
 	if err != nil {
