@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/esportsclub/entity-service-golang/handlers"
+	"github.com/esportsclub/entity-service-golang/services"
 	"github.com/gorilla/mux"
 	"log"
 	"net/http"
@@ -20,7 +21,10 @@ func NewApp() *App {
 		Subrouter().
 		StrictSlash(true)
 
-	handler := handlers.Handler{}
+	service := services.Service{}
+	handler := handlers.Handler{
+		Service: &service,
+	}
 
 	return &App{Router: r, Handler: &handler}
 }
