@@ -1,13 +1,12 @@
 package handlers
 
 import (
-	"encoding/json"
-	"log"
+	"github.com/esportsclub/entity-service-golang/common"
 	"net/http"
 )
 
 func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {
-	if err := json.NewEncoder(w).Encode(h.Service.Home()); err != nil {
-		log.Println("Unable to print to browser")
-	}
+	common.NewResponse(common.SUCCESS, "It works").
+		SetContent(h.Service.Home()).
+		Respond(w)
 }
