@@ -9,6 +9,7 @@ import (
 	"os"
 )
 
+// NewMongo initiates, checks and returns a mongodb connection
 func NewMongo() (client *mongo.Client) {
 	user := os.Getenv("DATABASE_USER")
 	pass := os.Getenv("DATABASE_PASS")

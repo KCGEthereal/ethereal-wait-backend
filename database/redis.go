@@ -7,6 +7,7 @@ import (
 	"os"
 )
 
+// NewRedis initiates, checks and returns a redis connection
 func NewRedis() *redis.Client {
 	opts, err := redis.ParseURL(os.Getenv("REDIS_URL"))
 	if err != nil {
