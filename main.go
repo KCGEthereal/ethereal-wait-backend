@@ -17,8 +17,9 @@ func init() {
 
 func main() {
 	mongo := database.NewMongo()
+	redis := database.NewRedis()
 
-	err := NewApp(mongo).
+	err := NewApp(mongo, redis).
 		SetupRoutes().
 		Listen()
 	if err != nil {

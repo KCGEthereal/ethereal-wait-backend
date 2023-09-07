@@ -4,6 +4,7 @@ import (
 	"github.com/esportsclub/entity-service-golang/handlers"
 	"github.com/esportsclub/entity-service-golang/services"
 	"github.com/gorilla/mux"
+	redisDB "github.com/redis/go-redis/v9"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
@@ -16,13 +17,13 @@ type App struct {
 	Handler *handlers.Handler
 }
 
-func NewApp(db *mongo.Client) *App {
+func NewApp(db *mongo.Client, redis *redisDB.Client) *App {
 	r := mux.NewRouter().
 		PathPrefix(os.Getenv("SERVICE_PREFIX")).
 		Subrouter().
 		StrictSlash(true)
 
-	service := services.Service{DB: db}
+	service := services.Service{DB: db, Redis: redis}
 	handler := handlers.Handler{
 		Service: &service,
 	}
