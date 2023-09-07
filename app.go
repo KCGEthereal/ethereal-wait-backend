@@ -12,11 +12,20 @@ import (
 	"time"
 )
 
+// App contains all the references that might be used throughout the application.
+// We initiate structs and make connections and pass it along to this struct.
+// Most of the init happens within NewApp.
+//
+// Golang has no concept of Dependency injection because those are considered "magical"
+// thus it's just plain old passing of values around. You should ideally be able to
+// just inspect the references and understand the whole codebase
 type App struct {
 	Router  *mux.Router
 	Handler *handlers.Handler
 }
 
+// NewApp is responsible to take mongodb & redis connection and then also initiate
+// other required dependencies for the app and then pass it around via App.
 func NewApp(db *mongo.Client, redis *redisDB.Client) *App {
 	r := mux.NewRouter().
 		PathPrefix(os.Getenv("SERVICE_PREFIX")).
@@ -31,6 +40,8 @@ func NewApp(db *mongo.Client, redis *redisDB.Client) *App {
 	return &App{Router: r, Handler: &handler}
 }
 
+// Listen opens a listener at your desired port and starts accepting requests.
+// Always set a WriteTimeout and ReadTimeout inside http.Server
 func (a *App) Listen() error {
 	log.Println("Listening on port *:8000")
 
@@ -44,6 +55,7 @@ func (a *App) Listen() error {
 	return srv.ListenAndServe()
 }
 
+// SetupRoutes houses all the routes used by this application.
 func (a *App) SetupRoutes() *App {
 	router := a.Router
 	handler := a.Handler
