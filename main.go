@@ -15,5 +15,10 @@ func init() {
 }
 
 func main() {
-	//
+	err := NewApp().
+		SetupRoutes().
+		Listen()
+	if err != nil {
+		log.Fatal("Unable to listen to port :3000")
+	}
 }
