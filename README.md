@@ -11,12 +11,16 @@ for anything within the TEC services backend.
     git clone git@github.com:esportsclub/entity-service-golang.git <project_name>
     ```
 2. Open `go.mod` and replace the first git url in first line with your projects' git link
-3. Copy `.env.example` to `.env`
+3. Install all dependencies
+   ```bash
+   go mod tidy
+   ```
+4. Copy `.env.example` to `.env`
    ```
     cp .env.example .env
     ```
-4. Fill in the `.env` with appropriate values so that connections are established
-5. 🚀 Time to code
+5. Fill in the `.env` with appropriate values so that connections are established
+6. 🚀 Time to code
 
 ## Documentation
 
