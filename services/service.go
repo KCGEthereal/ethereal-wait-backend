@@ -4,7 +4,7 @@
 package services
 
 import (
-	"github.com/redis/go-redis/v9"
+	"github.com/esportsclub/entity-service-golang/database"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -21,5 +21,5 @@ import (
 // Service will only return required data and error if any
 type Service struct {
 	DB    *mongo.Client
-	Redis *redis.Client
+	Redis *database.Redis
 }

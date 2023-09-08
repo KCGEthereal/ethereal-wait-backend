@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/esportsclub/entity-service-golang/database"
 	"github.com/esportsclub/entity-service-golang/handlers"
 	"github.com/esportsclub/entity-service-golang/services"
 	"github.com/gorilla/mux"
-	redisDB "github.com/redis/go-redis/v9"
 	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
@@ -20,13 +20,13 @@ import (
 // thus it's just plain old passing of values around. You should ideally be able to
 // just inspect the references and understand the whole codebase
 type App struct {
-	Router  *mux.Router
-	Handler *handlers.Handler
+	router  *mux.Router
+	handler *handlers.Handler
 }
 
 // NewApp is responsible to take mongodb & redis connection and then also initiate
 // other required dependencies for the app and then pass it around via App.
-func NewApp(db *mongo.Client, redis *redisDB.Client) *App {
+func NewApp(db *mongo.Client, redis *database.Redis) *App {
 	r := mux.NewRouter().
 		PathPrefix(os.Getenv("SERVICE_PREFIX")).
 		Subrouter().
@@ -37,7 +37,7 @@ func NewApp(db *mongo.Client, redis *redisDB.Client) *App {
 		Service: &service,
 	}
 
-	return &App{Router: r, Handler: &handler}
+	return &App{router: r, handler: &handler}
 }
 
 // Listen opens a listener at your desired port and starts accepting requests.
@@ -46,7 +46,7 @@ func (a *App) Listen() error {
 	log.Println("Listening on port *:8000")
 
 	srv := &http.Server{
-		Handler:      a.Router,
+		Handler:      a.router,
 		Addr:         "0.0.0.0:8000",
 		WriteTimeout: 15 * time.Second,
 		ReadTimeout:  15 * time.Second,
@@ -57,8 +57,8 @@ func (a *App) Listen() error {
 
 // SetupRoutes houses all the routes used by this application.
 func (a *App) SetupRoutes() *App {
-	router := a.Router
-	handler := a.Handler
+	router := a.router
+	handler := a.handler
 
 	router.HandleFunc("/", handler.Home)
 
