@@ -2,11 +2,12 @@ package database
 
 import (
 	"fmt"
-	"github.com/esportsclub/entity-service-golang/database/models"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 	"log"
 	"os"
+
+	"github.com/KCGEthereal/ethereal-wait-backend/database/models"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 )
 
 // NewGorm initiates, checks and returns a gorm connection

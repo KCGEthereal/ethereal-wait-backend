@@ -1,15 +1,16 @@
 package main
 
 import (
-	"github.com/esportsclub/entity-service-golang/database"
-	"github.com/esportsclub/entity-service-golang/handlers"
-	"github.com/esportsclub/entity-service-golang/services"
-	"github.com/gorilla/mux"
-	"go.mongodb.org/mongo-driver/mongo"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/KCGEthereal/ethereal-wait-backend/database"
+	"github.com/KCGEthereal/ethereal-wait-backend/handlers"
+	"github.com/KCGEthereal/ethereal-wait-backend/services"
+	"github.com/gorilla/mux"
+	"gorm.io/gorm"
 )
 
 // App contains all the references that might be used throughout the application.
@@ -26,7 +27,7 @@ type App struct {
 
 // NewApp is responsible to take mongodb & redis connection and then also initiate
 // other required dependencies for the app and then pass it around via App.
-func NewApp(db *mongo.Client, redis *database.Redis) *App {
+func NewApp(db *gorm.DB, redis *database.Redis) *App {
 	r := mux.NewRouter().
 		PathPrefix(os.Getenv("SERVICE_PREFIX")).
 		Subrouter().

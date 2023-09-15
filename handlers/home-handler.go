@@ -1,8 +1,9 @@
 package handlers
 
 import (
-	"github.com/esportsclub/entity-service-golang/common"
 	"net/http"
+
+	"github.com/KCGEthereal/ethereal-wait-backend/common"
 )
 
 func (h *Handler) Home(w http.ResponseWriter, r *http.Request) {

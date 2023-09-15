@@ -3,7 +3,7 @@
 // or suffix in its name.
 package handlers
 
-import "github.com/esportsclub/entity-service-golang/services"
+import "github.com/KCGEthereal/ethereal-wait-backend/services"
 
 // Handler struct has to be received by every function that is a handler.
 // Functions that receive Handler struct as a pointer will have access to

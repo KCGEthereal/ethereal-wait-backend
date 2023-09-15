@@ -1,4 +1,4 @@
-module github.com/esportsclub/entity-service-golang
+module github.com/KCGEthereal/ethereal-wait-backend
 
 go 1.21.0
 

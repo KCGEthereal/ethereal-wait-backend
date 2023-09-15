@@ -1,10 +1,11 @@
 package main
 
 import (
-	"github.com/esportsclub/entity-service-golang/database"
-	"github.com/joho/godotenv"
 	"log"
 	"os"
+
+	"github.com/KCGEthereal/ethereal-wait-backend/database"
+	"github.com/joho/godotenv"
 )
 
 // init sole work is to get all the ENV variables from the system and set
@@ -20,13 +21,13 @@ func init() {
 }
 
 // main handles the bootstrapping and connecting to database.
-// We pass around the mongodb connection to App which then
+// We pass around the mysql connection to App which then
 // hands it off to other structs that require a DB connection
 func main() {
-	mongo := database.NewMongo()
+	db := database.NewGorm()
 	redis := database.NewRedis()
 
-	err := NewApp(mongo, redis).
+	err := NewApp(db, redis).
 		SetupRoutes().
 		Listen()
 	if err != nil {
