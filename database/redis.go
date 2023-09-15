@@ -15,7 +15,9 @@ type Redis struct {
 
 // NewRedis initiates, checks and returns a Redis struct with
 // all of its receiver function
-func NewRedis() (redisStruct *Redis) {
+func NewRedis() *Redis {
+	var redisStruct Redis
+
 	opts, err := redis.ParseURL(os.Getenv("REDIS_URL"))
 	if err != nil {
 		log.Fatal("Unable to parse Redis URL")
@@ -29,7 +31,8 @@ func NewRedis() (redisStruct *Redis) {
 	}
 
 	log.Println("Connected to redis")
-	return
+
+	return &redisStruct
 }
 
 // Remember takes a key and expiration and callback. When the key exists in
