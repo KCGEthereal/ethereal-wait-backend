@@ -23,12 +23,10 @@ func init() {
 // We pass around the mongodb connection to App which then
 // hands it off to other structs that require a DB connection
 func main() {
-	db := database.NewGorm()
-	log.Println("db done")
+	mongo := database.NewMongo()
 	redis := database.NewRedis()
-	log.Println("redis done")
 
-	err := NewApp(db, redis).
+	err := NewApp(mongo, redis).
 		SetupRoutes().
 		Listen()
 	if err != nil {
