@@ -5,7 +5,7 @@ package services
 
 import (
 	"github.com/esportsclub/entity-service-golang/database"
-	"go.mongodb.org/mongo-driver/mongo"
+	"gorm.io/gorm"
 )
 
 // Service struct has to be received by every function that is a service.
@@ -20,6 +20,6 @@ import (
 //
 // Service will only return required data and error if any
 type Service struct {
-	DB    *mongo.Client
+	DB    *gorm.DB
 	Redis *database.Redis
 }

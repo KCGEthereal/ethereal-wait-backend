@@ -27,5 +27,5 @@ func NewGorm() (client *gorm.DB) {
 		log.Fatal("Unable to migrate tables")
 	}
 
-	return
+	return client
 }
