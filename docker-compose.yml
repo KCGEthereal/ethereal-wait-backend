@@ -1,0 +1,27 @@
+services:
+  app:
+    image: kcgethereal/wait-backend
+    build: .
+    depends_on:
+      - mongodb
+      - redis
+    ports:
+      - 8000:8000
+    restart: always
+    env_file:
+      - .env
+    environment:
+      APP_STAGE: development
+
+  mariadb:
+    image: mariadb:11
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: passwordR0FL
+      MARIADB_DATABASE: ethereal
+    volumes:
+      - ./.data:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    restart: always
