@@ -3,7 +3,7 @@ services:
     image: kcgethereal/wait-backend
     build: .
     depends_on:
-      - mongodb
+      - mariadb
       - redis
     ports:
       - 8000:8000
